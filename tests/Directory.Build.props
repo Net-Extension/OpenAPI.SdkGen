@@ -1,0 +1,45 @@
+<Project>
+
+  <Import Project="$([MSBuild]::GetPathOfFileAbove('Directory.Build.props', '$(MSBuildThisFileDirectory)../'))" />
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <IsTestProject>true</IsTestProject>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <!--
+    Coverage gate. Off by default so a plain `dotnet test` is fast; turned on with
+    /p:CollectCoverage=true, which is what CI and the phase reports use.
+
+    The bar is 100% line and 90% branch, measured over this repository's own assemblies
+    only. The CLI's process entry point is excluded in source with
+    [ExcludeFromCodeCoverage] rather than by a filter here, so the exclusion is visible
+    where the code lives.
+  -->
+  <PropertyGroup>
+    <CollectCoverage Condition="'$(CollectCoverage)' == ''">false</CollectCoverage>
+    <CoverletOutputFormat>cobertura,json</CoverletOutputFormat>
+    <CoverletOutput>$(MSBuildThisFileDirectory)../artifacts/coverage/$(MSBuildProjectName)/</CoverletOutput>
+    <Include>[NetExtension.OpenAPI.SdkGen.*]*,[Sample.Api.Client]*</Include>
+    <ThresholdType>line,branch</ThresholdType>
+    <Threshold>100,90</Threshold>
+    <ThresholdStat>total</ThresholdStat>
+    <SkipAutoProps>true</SkipAutoProps>
+    <UseSourceLink>true</UseSourceLink>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Using Include="Xunit" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" />
+    <PackageReference Include="xunit" />
+    <PackageReference Include="xunit.runner.visualstudio" PrivateAssets="all" />
+    <PackageReference Include="Moq" />
+    <PackageReference Include="coverlet.collector" PrivateAssets="all" />
+    <PackageReference Include="coverlet.msbuild" PrivateAssets="all" />
+  </ItemGroup>
+
+</Project>
