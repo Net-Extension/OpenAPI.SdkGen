@@ -105,7 +105,7 @@ by coverlet: `dotnet test /p:CollectCoverage=true` exits non-zero below the thre
 off by default so that a plain `dotnet test` stays fast. Reports are written to
 `artifacts/coverage/<project>/` as Cobertura and JSON.
 
-Current: `NetExtension.OpenAPI.SdkGen.Core` — **100% line, 97.36% branch**, 30 tests.
+Current: `NetExtension.OpenAPI.SdkGen.Core` — **100% line, 100% branch**, 40 tests.
 
 The CLI's process entry point will be excluded with `[ExcludeFromCodeCoverage]` in source rather
 than by a filter, so the exclusion is visible where the code lives.
