@@ -1,0 +1,41 @@
+<Project>
+
+  <!--
+    Shared build settings for every project in the repository.
+
+    Versioning is CalVer: the epoch below is bumped per release month, and the build number
+    comes from the CI run number (or 0 for a local build). This version applies to the
+    *engine* packages only. The version stamped into a generated client project is a
+    generator parameter with its own stable default, so that regenerating an unchanged API
+    produces no diff regardless of which build number is in effect.
+  -->
+  <PropertyGroup>
+    <CalVerEpoch>2026.9</CalVerEpoch>
+    <BuildNumber Condition="'$(BuildNumber)' == '' and '$(GITHUB_RUN_NUMBER)' != ''">$(GITHUB_RUN_NUMBER)</BuildNumber>
+    <BuildNumber Condition="'$(BuildNumber)' == ''">0</BuildNumber>
+    <Version>$(CalVerEpoch).$(BuildNumber)</Version>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <LangVersion>latest</LangVersion>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <Deterministic>true</Deterministic>
+    <ContinuousIntegrationBuild Condition="'$(CI)' == 'true'">true</ContinuousIntegrationBuild>
+    <InvariantGlobalization>true</InvariantGlobalization>
+    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <!--
+    Repository metadata for the packages this solution ships.
+  -->
+  <PropertyGroup>
+    <Authors>net-extension</Authors>
+    <RepositoryUrl>https://github.com/net-extension/openapi.sdkgen</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+  </PropertyGroup>
+
+</Project>

@@ -1,0 +1,7 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <ProjectReference Include="../../src/NetExtension.OpenAPI.SdkGen.Core/NetExtension.OpenAPI.SdkGen.Core.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <IsPackable>true</IsPackable>
+    <PackageId>NetExtension.OpenAPI.SdkGen.Core</PackageId>
+    <Description>
+      Domain model, use cases and ports for SdkGen. Describes an API client SDK as data and
+      contains no I/O of any kind: no reflection, no filesystem, no network.
+    </Description>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+  </PropertyGroup>
+
+</Project>
